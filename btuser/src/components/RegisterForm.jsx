@@ -47,7 +47,7 @@ export default function RegisterForm() {
     });
   };
 
-  const selectedUser = useSelector((state) => state.userReducer.selectedUser);
+ 
 
   const handleBlur = (event) => {
     let message = "";

@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { DELETE_USER, SET_SELECTED_USER } from "../store/types/userType";
 
 export default function UserManagement() {
+  const [keyword, setKeyword] = useState({
+    keyword: "",
+  });
+
   const dispatch = useDispatch();
 
   const setSelectedUser = (user) => {
@@ -19,10 +23,16 @@ export default function UserManagement() {
     });
   };
 
-  const user = useSelector((state) => state.userReducer.userList);
+  const userList = useSelector((state) => state.userReducer.userList);
 
   const renderUserList = () => {
-    return user.map((ele, idx) => {
+    const filteredData = userList.filter((ele) => {
+      return (
+        ele.fullName.toLowerCase().indexOf(keyword.keyword.toLowerCase()) !== -1
+      );
+    });
+
+    return filteredData.map((ele, idx) => {
       return (
         <tr className={idx % 2 === 0 ? "bg-light" : undefined} key={ele.id}>
           <td>{idx + 1}</td>
@@ -57,15 +67,16 @@ export default function UserManagement() {
               type="text"
               placeholder="Search by full name..."
               className="form-control"
+              onChange={(event) => setKeyword({ keyword: event.target.value })}
             />
           </div>
         </div>
         <div className="col-3 ml-auto">
           <div className="form-group mb-0">
             <select className="form-control">
-              <option>All</option>
-              <option>Client</option>
-              <option>Admin</option>
+              <option value="All">All</option>
+              <option value="Client">Client</option>
+              <option value="Admin">Admin</option>
             </select>
           </div>
         </div>

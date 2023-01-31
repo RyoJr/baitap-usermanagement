@@ -1,4 +1,9 @@
-import { ADD_USER, DELETE_USER, SET_SELECTED_USER } from "../types/userType";
+import {
+  ADD_USER,
+  DELETE_USER,
+  FILTER_USER_LIST,
+  SET_SELECTED_USER,
+} from "../types/userType";
 
 const DEFAULT_STATE = {
   userList: [
@@ -57,4 +62,3 @@ export const userReducer = (state = DEFAULT_STATE, action) => {
   }
   return { ...state };
 };
-
